@@ -14,6 +14,7 @@ namespace TestGeneratorLib
     {
         public static FileInfo GetFileInfo(string code)
         {
+            //создание синтаксического дерева
             CompilationUnitSyntax root = CSharpSyntaxTree.ParseText(code).GetCompilationUnitRoot();
             var classes = new List<ClassInfo>();
             foreach (ClassDeclarationSyntax classDeclaration in root.DescendantNodes().OfType<ClassDeclarationSyntax>())
@@ -43,6 +44,7 @@ namespace TestGeneratorLib
 
         private static MethodInfo GetMethodInfo(MethodDeclarationSyntax method)
         {
+            // int a 
             var parameters = new Dictionary<string, string>();
             foreach (var parameter in method.ParameterList.Parameters)
             {

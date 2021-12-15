@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace TestGeneratorLib
 {
-    public static class TestsGenerator
+    public  class TestsGenerator : ITestGenerator
     {
         private static readonly SyntaxToken PublicModifier;
         private static readonly TypeSyntax VoidReturnType;
@@ -25,7 +25,7 @@ namespace TestGeneratorLib
             ClassAttribute = SyntaxFactory.Attribute(SyntaxFactory.ParseName("TestFixture"));
         }
 
-        public static Dictionary<string, string> GenerateTests(FileInfo fileInfo)
+        public Dictionary<string, string> GenerateTests(FileInfo fileInfo)
         {
             var fileNameCode = new Dictionary<string, string>();
 
@@ -44,7 +44,7 @@ namespace TestGeneratorLib
 
             return fileNameCode;
         }
-
+//генерация класса
         private static ClassDeclarationSyntax GenerateClass(ClassInfo classInfo)
         {
             var fields = new List<FieldDeclarationSyntax>();
@@ -145,7 +145,7 @@ namespace TestGeneratorLib
                 varType
             ));
         }
-
+//для моков
         private static StatementSyntax GenerateCustomsTypesAssignStatement(string varName, string constructorName, string invokeArgs = "")
         {
             return SyntaxFactory.ParseStatement(string.Format

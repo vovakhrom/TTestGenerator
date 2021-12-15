@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TestGeneratorLib;
 
 namespace MainPart
 {
@@ -28,10 +29,9 @@ namespace MainPart
             var files = from file in allFiles
                     where file.Substring(file.Length - 3) == ".cs"
                     select file;
-
-            Task task =  new Pipeline().Generate(files, pathToGenerated);
+            ITestGenerator generato = new TestsGenerator();
+            Task task =  new Pipeline().Generate(files, pathToGenerated,  generato);
             task.Wait();
-            //Thread.Sleep(2000);
             Console.WriteLine("end.");
         }
     }
